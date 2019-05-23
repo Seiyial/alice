@@ -40,7 +40,7 @@ class AliceHttpAdapter {
       httpRequest.size = 0;
       httpRequest.body = "";
     } else {
-      httpRequest.size = utf8.encode(body.toString()).length;
+      httpRequest.size = utf8.encode(body.toString()) == null ? 0 : utf8.encode(body.toString()).length;
       httpRequest.body = body;
     }
     httpRequest.time = DateTime.now();

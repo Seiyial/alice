@@ -35,7 +35,7 @@ class AliceHttpClientAdapter {
       httpRequest.size = 0;
       httpRequest.body = "";
     } else {
-      httpRequest.size = utf8.encode(body.toString()).length;
+      httpRequest.size = utf8.encode(body.toString()) == null ? 0 : utf8.encode(body.toString()).length;
       httpRequest.body = body;
     }
     httpRequest.time = DateTime.now();
@@ -71,7 +71,7 @@ class AliceHttpClientAdapter {
 
     if (body != null) {
       httpResponse.body = body;
-      httpResponse.size = utf8.encode(body.toString()).length;
+      httpResponse.size = utf8.encode(body.toString()) == null ? 0 : utf8.encode(body.toString()).length;
     } else {
       httpResponse.body = "";
       httpResponse.size = 0;
