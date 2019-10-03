@@ -25,7 +25,7 @@ class AliceCallRequestWidget extends AliceBaseCallDetailsWidget {
           bodyContent += '<FILE> ${item.key}\n';
         });
         body.fields.forEach((MapEntry<String, String> item) {
-          bodyContent += '<field> ${item.key}: ${item.value}';
+          bodyContent += '<field> ${item.key}: ${item.value}\n';
         });
       } else {
         bodyContent = encoder.convert(call.request.body);
