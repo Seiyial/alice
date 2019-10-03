@@ -2,6 +2,7 @@ import 'package:alice/model/alice_http_error.dart';
 import 'package:alice/ui/alice_calls_list_screen.dart';
 import 'package:alice/model/alice_http_call.dart';
 import 'package:alice/model/alice_http_response.dart';
+import 'package:alice/ui/alice_save_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/rxdart.dart';
@@ -20,8 +21,10 @@ class AliceCore {
     calls = List();
     changesSubject = PublishSubject();
     callUpdateSubject = PublishSubject();
-    _initializeNotificationsPlugin();
     _showNotification = showNotification;
+    if (showNotification) {
+      _initializeNotificationsPlugin();
+    }
   }
 
   dispose() {
@@ -134,5 +137,9 @@ class AliceCore {
       }
     });
     return requestedCall;
+  }
+
+  void saveHttpRequests(BuildContext context) {
+    AliceSaveHelper.saveCalls(context, calls);
   }
 }
