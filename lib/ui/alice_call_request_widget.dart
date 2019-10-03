@@ -1,4 +1,5 @@
 import 'package:alice/model/alice_http_call.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'alice_base_call_details_widget.dart';
@@ -18,7 +19,17 @@ class AliceCallRequestWidget extends AliceBaseCallDetailsWidget {
     var body = call.request.body;
     var bodyContent = "Body is empty";
     if (body != null && body.length > 0) {
-      bodyContent = encoder.convert(call.request.body);
+      if (body is FormData) {
+        bodyContent = 'FormData:\n';
+        body.files.forEach((MapEntry<String, MultipartFile> item) {
+          bodyContent += '<FILE> ${item.key}\n';
+        });
+        body.fields.forEach((MapEntry<String, String> item) {
+          bodyContent += '<field> ${item.key}: ${item.value}';
+        });
+      } else {
+        bodyContent = encoder.convert(call.request.body);
+      }
     }
     rows.add(getListRow("Body:", bodyContent));
 
